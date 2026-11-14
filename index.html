@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asraful – Web Developer | HTML, CSS, JavaScript, WordPress</title>
+<meta name="description" content="Asraful is a web developer who builds fast, mobile-friendly websites with HTML, CSS, JavaScript and WordPress. See three live demo sites: SaaS, fitness and online shop.">
+<meta name="author" content="Asraful">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#2f5bff">
+<!-- CHANGE: after you deploy, put your real link here -->
+<link rel="canonical" href="https://your-hub-link.netlify.app/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Asraful – Web Developer">
+<meta property="og:description" content="Fast, mobile-friendly websites. See three live demo sites.">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Asraful","jobTitle":"Web Developer","knowsAbout":["HTML","CSS","JavaScript","WordPress","SEO"],"email":"youremail@example.com"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f4f6;--ink:#14202b;--muted:#566573;--line:#d5dde3;--accent:#2f5bff;--card:#fff}
+@media (prefers-color-scheme: dark){:root{--bg:#0f161c;--ink:#eaf0f4;--muted:#9aabb8;--line:#27333d;--accent:#7f9cff;--card:#17212a}}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:"Bricolage Grotesque",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:18px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+header{padding:18px 0;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;background:var(--bg)}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;text-decoration:none;font-size:1.15rem;display:flex;align-items:center;gap:8px}
+.logo b{background:var(--accent);color:#fff;border-radius:8px;padding:1px 8px;font-size:.95rem}
+nav a{margin-left:22px;text-decoration:none;color:var(--muted);font-weight:500}nav a:hover{color:var(--ink)}
+.hero{padding-top:72px;padding-bottom:56px}
+.hg{display:grid;grid-template-columns:1.15fr 1fr;gap:44px;align-items:center}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:.95rem;font-weight:500;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;margin-bottom:22px}
+.status span{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.2)}
+h1{font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.05;font-weight:800;letter-spacing:-.03em}
+h1 em{font-style:normal;color:var(--accent)}
+.hero p.lead{margin-top:22px;max-width:50ch;color:var(--muted);font-size:1.15rem}
+.btns{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 24px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid var(--ink)}
+.btn.main{background:var(--ink);color:var(--bg)}.btn:hover{border-color:var(--accent)}
+.code{background:#0f1720;color:#cfe0ee;border-radius:16px;overflow:hidden;box-shadow:0 24px 50px -28px rgba(0,0,0,.6);font-family:ui-monospace,Consolas,monospace;font-size:.88rem}
+.code .tb{background:#18232f;padding:10px 14px;display:flex;gap:6px;align-items:center}
+.code .tb i{width:10px;height:10px;border-radius:50%;background:#3a4856}
+.code .tb span{margin-left:10px;font-size:.78rem;color:#8da2b5}
+.code pre{padding:18px;white-space:pre-wrap;line-height:1.7}
+.k{color:#7fb2ff}.s{color:#9be29b}.c{color:#7a8c9c}.t{color:#ffb86b}
+section{padding:64px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;letter-spacing:-.02em;margin-bottom:20px}
+.about{display:grid;grid-template-columns:1.2fr 1fr;gap:48px}
+.about p{margin-bottom:16px;max-width:56ch}
+.skills{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:10px;align-content:start}
+.skills li{padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-weight:500;font-size:.95rem}
+.skills li.hl{border-color:var(--accent);color:var(--accent);font-weight:700}
+.sub{color:var(--muted);margin-bottom:32px;max-width:58ch}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.work{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}
+.work:hover{transform:translateY(-4px);border-color:var(--accent)}
+.thumb{height:190px;padding:14px 14px 0;display:flex;flex-direction:column}
+.t1{background:linear-gradient(135deg,#3730a3,#7c75f0)}
+.t2{background:linear-gradient(135deg,#d9480f,#ff9f43)}
+.t3{background:linear-gradient(135deg,#0e7a5f,#2fb68e)}
+.bar{background:#fff;border-radius:10px 10px 0 0;padding:7px 10px;display:flex;gap:5px;align-items:center}
+.bar b{width:7px;height:7px;border-radius:50%;background:#d5dde3}.bar span{margin-left:8px;flex:1;height:8px;border-radius:4px;background:#eef2f5}
+.page{flex:1;background:#fff;padding:12px;display:grid;gap:8px;overflow:hidden;color:#14202b;align-content:start}
+.nv{display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:800}
+.nv em{font-style:normal;background:#14202b;color:#fff;border-radius:8px;padding:2px 7px;font-weight:600}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.kp div{background:#eceafc;border-radius:6px;padding:4px 6px;font-size:8px;font-weight:800}.kp small{display:block;font-weight:500;color:#5d6280}
+.ch{display:flex;align-items:flex-end;gap:4px;height:50px}.ch div{flex:1;background:#4338ca;border-radius:3px 3px 0 0;opacity:.85}
+.h1{font-size:15px;font-weight:800;line-height:1.1;letter-spacing:-.02em}
+.row{display:flex;justify-content:space-between;font-size:8px;background:#fff1e6;border-radius:6px;padding:5px 7px;font-weight:600}.row u{text-decoration:none;color:#d9480f;font-weight:800}
+.pg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.pg div{height:44px;border-radius:6px;background:#e3f4ee}.pg div:nth-child(2n){background:#d3ece3}
+.pr{display:flex;gap:6px}.pr s{text-decoration:none;font-size:8px;background:#e3f4ee;border-radius:6px;padding:2px 6px;font-weight:700}
+.work .body{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.work h3{font-size:1.3rem}.work p{color:var(--muted);font-size:.97rem}
+.work ul{list-style:none;padding:0;font-size:.92rem}.work li::before{content:"✓ ";color:var(--accent);font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:6px}.tags span{font-size:.78rem;border:1px solid var(--line);border-radius:99px;padding:2px 10px;color:var(--muted)}
+.go{margin-top:auto;padding-top:8px;font-weight:700;color:var(--accent)}
+.contact p{max-width:50ch;color:var(--muted);margin-bottom:20px}
+.mail{font-size:clamp(1.3rem,4vw,2rem);font-weight:800;color:var(--accent);word-break:break-all}
+footer{padding:28px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+@media(max-width:860px){.hg,.about,.grid{grid-template-columns:minmax(0,1fr)}.hero{padding-top:44px;padding-bottom:36px}nav a{margin-left:14px}.code{font-size:.8rem}}
+@media(max-width:420px){.wrap{padding:0 18px}nav a:first-child{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Back to top"><b>&lt;/&gt;</b>Portfolio</a>
+    <nav aria-label="Main"><a href="#about">About</a><a href="#portfolio">Work</a><a href="#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero hg">
+    <div>
+      <p class="status"><span></span>Open for contract work</p>
+      <h1>Hi, I'm Asraful. I build websites that <em>load fast</em> and work well.</h1>
+      <p class="lead">I'm a web developer. I make clean, mobile-friendly sites for businesses. Below are three live demo sites you can open and try.</p>
+      <div class="btns"><a class="btn main" href="#portfolio">See my work</a><a class="btn" href="#contact">Get in touch</a></div>
+    </div>
+    <div class="code" aria-hidden="true">
+      <div class="tb"><i></i><i></i><i></i><span>index.html</span></div>
+<pre><span class="c">&lt;!-- built by hand --&gt;</span>
+<span class="k">&lt;h1&gt;</span>Hi, I'm Asraful<span class="k">&lt;/h1&gt;</span>
+<span class="k">&lt;ul</span> <span class="t">class</span>=<span class="s">"skills"</span><span class="k">&gt;</span>
+  <span class="k">&lt;li&gt;</span>HTML, CSS, JavaScript<span class="k">&lt;/li&gt;</span>
+  <span class="k">&lt;li&gt;</span>WordPress<span class="k">&lt;/li&gt;</span>
+  <span class="k">&lt;li&gt;</span>AI-assisted coding<span class="k">&lt;/li&gt;</span>
+  <span class="k">&lt;li&gt;</span>Basic SEO<span class="k">&lt;/li&gt;</span>
+<span class="k">&lt;/ul&gt;</span></pre>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap about">
+      <div>
+        <h2>About me</h2>
+        <!-- CHANGE: edit this text any time -->
+        <p>I'm Asraful, a web developer. I write websites in HTML, CSS and JavaScript, and I also build with WordPress when a project needs it.</p>
+        <p>I use AI tools to work faster, then I check and fix the code myself so the site is clean and works properly. I also add basic SEO, like page titles, descriptions and clear headings, so people can find the site on Google.</p>
+        <p>I care about three things: the site loads quickly, it looks good on a phone, and visitors know what to click next.</p>
+      </div>
+      <ul class="skills" aria-label="Skills">
+        <li class="hl">HTML</li><li class="hl">CSS</li><li class="hl">JavaScript</li><li class="hl">WordPress</li><li class="hl">AI tools</li>
+        <li>Basic SEO</li><li>Mobile-friendly design</li><li>Fast loading</li><li>Contact forms</li><li>Shopping carts</li><li>Google Analytics</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="wrap">
+      <h2>Portfolio</h2>
+      <p class="sub">Three demo sites I built. Open one and try the buttons, forms and menus to see how it works. They use sample content, so nothing is real.</p>
+      <div class="grid">
+        <!-- CHANGE: replace each href with your live link, e.g. https://your-saas.netlify.app -->
+        <a class="work" href="Portfolios/saas.html">
+          <div class="thumb t1"><div class="bar"><b></b><b></b><b></b><span></span></div><div class="page">
+            <div class="nv">LEDGERLY<em>Start free</em></div>
+            <div class="kp"><div><small>Revenue</small>$18.6k</div><div><small>Paid</small>46</div><div><small>Late</small>$1.1k</div></div>
+            <div class="ch"><div style="height:40%"></div><div style="height:55%"></div><div style="height:45%"></div><div style="height:70%"></div><div style="height:60%"></div><div style="height:85%"></div><div style="height:100%"></div></div>
+          </div></div>
+          <div class="body">
+            <h3>SaaS Landing Page</h3>
+            <p>A product page for an invoicing app. It is made to turn visitors into free-trial signups.</p>
+            <ul><li>Live dashboard with date ranges</li><li>Savings calculator</li><li>Pricing toggle and signup form</li></ul>
+            <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Forms</span><span>Event tracking</span></div>
+            <span class="go">Open site</span>
+          </div>
+        </a>
+        <a class="work" href="Portfolios/fitness.html">
+          <div class="thumb t2"><div class="bar"><b></b><b></b><b></b><span></span></div><div class="page">
+            <div class="nv">PULSE STUDIO<em>Join</em></div><div class="h1">Train hard.<br>Feel strong.</div>
+            <div class="row">Mon 6:30 HIIT<u>Book</u></div><div class="row">Tue 18:00 Yoga<u>Book</u></div>
+          </div></div>
+          <div class="body">
+            <h3>Fitness Studio</h3>
+            <p>A gym website where people can see classes, compare prices and book a spot.</p>
+            <ul><li>Class schedule with booking</li><li>Monthly / yearly pricing</li><li>BMI and calorie calculators</li></ul>
+            <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Booking form</span></div>
+            <span class="go">Open site</span>
+          </div>
+        </a>
+        <a class="work" href="Portfolios/ecom.html">
+          <div class="thumb t3"><div class="bar"><b></b><b></b><b></b><span></span></div><div class="page">
+            <div class="nv">URBAN GOODS<em>Cart 2</em></div>
+            <div class="pg"><div></div><div></div><div></div><div></div></div><div class="pr"><s>$29</s><s>$48</s><s>$65</s></div>
+          </div></div>
+          <div class="body">
+            <h3>Online Shop</h3>
+            <p>A small online store where people can find products, fill a cart and check out.</p>
+            <ul><li>Search, filters and sorting</li><li>Working cart and promo code</li><li>Checkout with form checks</li></ul>
+            <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Cart</span></div>
+            <span class="go">Open site</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <h2>Contact</h2>
+      <p>Have a project or a question? Send me an email and I'll reply within a day or two.</p>
+      <!-- CHANGE: your real email (change it in both places, and in the top of the page too) -->
+      <a class="mail" href="mailto:naturalneo37@gmail.com">naturalneo37@gmail.com</a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">© <span id="y"></span> Asraful. Built by hand with HTML, CSS and JavaScript.</div></footer>
+<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+</body>
+</html>

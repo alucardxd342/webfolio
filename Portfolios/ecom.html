@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Urban Goods – Everyday things, well made</title>
+<meta name="description" content="Urban Goods is a demo online shop with search, filters, a working cart and a mock checkout.">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f8f7;--ink:#13221d;--muted:#5d6f68;--line:#dbe4e0;--card:#fff;--brand:#0e7a5f;--brand2:#e3f4ee;--warn:#c2410c}
+*{box-sizing:border-box;margin:0}
+body{font-family:"Bricolage Grotesque",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.promo{background:var(--ink);color:#fff;text-align:center;font-size:.85rem;padding:7px}
+header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+header .wrap{display:flex;align-items:center;gap:16px;padding-top:12px;padding-bottom:12px}
+.logo{font-weight:800;font-size:1.3rem;letter-spacing:-.02em;color:var(--brand)}
+.search{flex:1;max-width:460px;margin-left:auto;padding:10px 16px;border:1px solid var(--line);border-radius:999px;background:var(--bg)}
+.cartbtn{position:relative;border:2px solid var(--ink);background:none;border-radius:999px;padding:8px 18px;font-weight:700}
+.cartbtn b{background:var(--brand);color:#fff;border-radius:999px;padding:1px 8px;margin-left:6px;font-size:.85rem}
+.hero{background:linear-gradient(120deg,#0e7a5f,#2fb68e);color:#fff;padding:56px 0}
+.hero h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.05;letter-spacing:-.03em;max-width:14ch}
+.hero p{margin:14px 0 22px;max-width:44ch;opacity:.95}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:999px;padding:12px 24px;font-weight:700}
+.btn:hover{filter:brightness(1.1)}
+.btn.light{background:#fff;color:var(--brand)}
+.btn.line{background:none;color:var(--ink);border:2px solid var(--line)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:24px 0 8px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 16px;font-weight:500}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.bar select{margin-left:auto;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.count{color:var(--muted);font-size:.9rem;padding-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;padding-bottom:56px}
+.p{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.pimg{height:170px;display:grid;place-items:center;font-size:4.2rem;cursor:pointer;position:relative}
+.tag{position:absolute;top:10px;left:10px;background:var(--warn);color:#fff;font-size:.75rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.pb{padding:14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.pb h3{font-size:1rem;cursor:pointer}
+.rate{color:#b45309;font-size:.85rem}
+.price{font-weight:800;font-size:1.1rem}
+.price s{color:var(--muted);font-weight:400;font-size:.9rem;margin-left:6px}
+.pb .btn{margin-top:auto;padding:9px;font-size:.92rem}
+.empty{grid-column:1/-1;text-align:center;padding:48px;color:var(--muted)}
+footer{background:var(--ink);color:#b7c7c0;padding:28px 0;font-size:.9rem}
+/* overlay, drawer, modal */
+.ov{position:fixed;inset:0;background:rgba(10,20,16,.55);display:none;z-index:40}
+.ov.show{display:block}
+.drawer{position:fixed;right:0;top:0;bottom:0;width:min(420px,100%);background:var(--card);z-index:50;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s}
+.drawer.show{transform:none}
+.dh{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.x{background:none;border:0;font-size:1.6rem;line-height:1}
+.items{flex:1;overflow:auto;padding:8px 20px}
+.it{display:grid;grid-template-columns:56px 1fr auto;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center}
+.it .th{height:56px;border-radius:10px;display:grid;place-items:center;font-size:1.8rem}
+.it small{color:var(--muted)}
+.q{display:inline-flex;align-items:center;gap:8px;margin-top:4px}
+.q button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:var(--bg)}
+.rm{background:none;border:0;color:var(--warn);font-size:.85rem;display:block;margin-top:4px}
+.sum{padding:16px 20px;border-top:1px solid var(--line);display:grid;gap:6px}
+.sum div{display:flex;justify-content:space-between}
+.sum .tot{font-weight:800;font-size:1.15rem}
+.pc{display:flex;gap:8px}
+.pc input{flex:1;padding:8px 12px;border:1px solid var(--line);border-radius:10px}
+.msg{font-size:.85rem;min-height:1.1em}
+.ok{color:var(--brand)}.bad{color:var(--warn)}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,94%);max-height:92vh;overflow:auto;background:var(--card);border-radius:20px;z-index:50;display:none}
+.modal.show{display:block}
+.mimg{height:200px;display:grid;place-items:center;font-size:6rem}
+.mb{padding:22px;display:grid;gap:12px}
+.opts{display:flex;gap:12px;flex-wrap:wrap}
+.opts label{display:grid;gap:4px;font-size:.85rem;color:var(--muted)}
+.opts select{padding:8px;border:1px solid var(--line);border-radius:10px;color:var(--ink)}
+.fm{display:grid;gap:12px;padding:22px}
+.fm label{display:grid;gap:4px;font-size:.88rem;font-weight:500}
+.fm input{padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-weight:400}
+.fm input.err{border-color:var(--warn)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.note{font-size:.8rem;color:var(--muted)}
+.done{text-align:center;padding:36px 24px;display:grid;gap:12px}
+.done .big{font-size:3.4rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:999px;z-index:60;transition:transform .25s;font-size:.92rem}
+.toast.show{transform:translateX(-50%)}
+@media(max-width:600px){.search{order:3;max-width:none;flex-basis:100%;margin:0}header .wrap{flex-wrap:wrap}.logo{margin-right:auto}.bar select{margin-left:0}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="promo">Free shipping over $50 · Use code SAVE10 for 10% off</div>
+<header><div class="wrap">
+  <div class="logo">Urban Goods</div>
+  <input class="search" id="q" type="search" placeholder="Search products" aria-label="Search products">
+  <button class="cartbtn" id="cartBtn" aria-label="Open cart">Cart<b id="cc">0</b></button>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <h1>Everyday things, well made.</h1>
+  <p>Desk gear, home basics and carry bags picked for daily use. This is a demo shop, so nothing is really sold.</p>
+  <button class="btn light" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop now</button>
+</div></section>
+
+<main class="wrap" id="shop">
+  <div class="bar" id="chips"></div>
+  <div class="count" id="info"></div>
+  <div class="grid" id="grid"></div>
+</main>
+<footer><div class="wrap">Urban Goods is a demo store built for a portfolio. No real payments, no real orders.</div></footer>
+
+<div class="ov" id="ov"></div>
+<aside class="drawer" id="drawer" aria-label="Shopping cart">
+  <div class="dh"><h2>Your cart</h2><button class="x" data-close aria-label="Close cart">×</button></div>
+  <div class="items" id="items"></div>
+  <div class="sum" id="sum"></div>
+</aside>
+<div class="modal" id="pm" role="dialog" aria-modal="true" aria-label="Product details"></div>
+<div class="modal" id="cm" role="dialog" aria-modal="true" aria-label="Checkout"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// CHANGE: edit products here. cat must match one of the categories.
+const P=[
+ {id:1,n:"Wireless Mouse",c:"Tech",p:24,o:32,e:"🖱️",bg:"#e3f4ee",r:4.5,d:"Quiet clicks, 12-month battery and a small body that fits any bag.",v:["Black","White"]},
+ {id:2,n:"Mechanical Keyboard",c:"Tech",p:79,e:"⌨️",bg:"#dfe9f7",r:4.8,d:"Compact 75% layout with soft tactile switches and a USB-C cable.",v:["Grey","Cream"]},
+ {id:3,n:"Desk Lamp",c:"Home",p:39,e:"💡",bg:"#fdf0d5",r:4.3,d:"Dimmable warm light with three brightness levels and a touch switch.",v:["White","Black"]},
+ {id:4,n:"Ceramic Mug",c:"Home",p:14,e:"☕",bg:"#f6e1d5",r:4.6,d:"Hand-glazed 350 ml mug. Dishwasher and microwave safe.",v:["Sand","Forest"]},
+ {id:5,n:"Canvas Backpack",c:"Bags",p:58,o:75,e:"🎒",bg:"#e6efd9",r:4.7,d:"20 L pack with a padded laptop pocket and water-resistant canvas.",v:["Olive","Navy"]},
+ {id:6,n:"Leather Wallet",c:"Accessories",p:35,e:"👛",bg:"#f0dfd0",r:4.4,d:"Slim wallet with six card slots and a coin pocket.",v:["Tan","Black"]},
+ {id:7,n:"Noise-Cancel Earbuds",c:"Tech",p:89,o:119,e:"🎧",bg:"#e7e0f4",r:4.6,d:"Active noise cancelling and 24 hours of battery with the case.",v:["Black","White"]},
+ {id:8,n:"Scented Candle",c:"Home",p:18,e:"🕯️",bg:"#fbe6ea",r:4.2,d:"Soy wax candle with cedar and fig. Burns for 40 hours.",v:["Cedar","Vanilla"]},
+ {id:9,n:"Tote Bag",c:"Bags",p:22,e:"👜",bg:"#e0eef2",r:4.1,d:"Strong cotton tote for groceries, books or the gym.",v:["Natural","Black"]},
+ {id:10,n:"Steel Water Bottle",c:"Accessories",p:27,e:"🧴",bg:"#dcefe9",r:4.8,d:"Keeps drinks cold for 24 hours or hot for 12.",v:["Silver","Green"]},
+ {id:11,n:"Sunglasses",c:"Accessories",p:45,o:60,e:"🕶️",bg:"#e9e9e9",r:4.0,d:"Polarised lenses with a light frame. UV400 protection.",v:["Black","Tortoise"]},
+ {id:12,n:"Laptop Stand",c:"Tech",p:42,e:"💻",bg:"#e0e8f5",r:4.5,d:"Folding aluminium stand that lifts your screen to eye level.",v:["Silver","Space grey"]}
+];
+const CATS=["All",...new Set(P.map(x=>x.c))];
+const $=s=>document.querySelector(s), money=n=>"$"+n.toFixed(2);
+let cat="All",term="",sort="feat",cart=[],promo=null;
+try{cart=JSON.parse(localStorage.getItem("ug_cart")||"[]")}catch(e){}
+const save=()=>{try{localStorage.setItem("ug_cart",JSON.stringify(cart))}catch(e){}};
+const stars=r=>"★".repeat(Math.round(r))+"☆".repeat(5-Math.round(r));
+
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),1800)}
+function open_(el){$("#ov").classList.add("show");el.classList.add("show")}
+function closeAll(){document.querySelectorAll(".show").forEach(e=>{if(e.id!=="toast")e.classList.remove("show")})}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeAll()});
+$("#ov").onclick=closeAll;
+
+function render(){
+  $("#chips").innerHTML=CATS.map(c=>`<button class="chip ${c===cat?"on":""}" data-c="${c}">${c}</button>`).join("")+
+   `<select id="sort" aria-label="Sort products"><option value="feat">Featured</option><option value="lo">Price: low to high</option><option value="hi">Price: high to low</option><option value="rt">Top rated</option></select>`;
+  $("#sort").value=sort;
+  let l=P.filter(x=>(cat==="All"||x.c===cat)&&x.n.toLowerCase().includes(term));
+  if(sort==="lo")l.sort((a,b)=>a.p-b.p);if(sort==="hi")l.sort((a,b)=>b.p-a.p);if(sort==="rt")l.sort((a,b)=>b.r-a.r);
+  $("#info").textContent=l.length+" product"+(l.length===1?"":"s");
+  $("#grid").innerHTML=l.length?l.map(x=>`<article class="p">
+    <div class="pimg" style="background:${x.bg}" data-v="${x.id}">${x.o?`<span class="tag">Sale</span>`:""}${x.e}</div>
+    <div class="pb"><h3 data-v="${x.id}">${x.n}</h3><div class="rate">${stars(x.r)} ${x.r}</div>
+    <div class="price">${money(x.p)}${x.o?`<s>${money(x.o)}</s>`:""}</div>
+    <button class="btn" data-a="${x.id}">Add to cart</button></div></article>`).join(""):
+    `<div class="empty">No products match "${term}". Try another word or clear the filter.</div>`;
+}
+$("#chips").onclick=e=>{const c=e.target.dataset.c;if(c){cat=c;render()}};
+$("#chips").onchange=e=>{if(e.target.id==="sort"){sort=e.target.value;render()}};
+$("#q").oninput=e=>{term=e.target.value.trim().toLowerCase();render()};
+$("#grid").onclick=e=>{
+  const v=e.target.closest("[data-v]"),a=e.target.dataset.a;
+  if(a)add(+a,P.find(x=>x.id==a).v[0],1);else if(v)product(+v.dataset.v);
+};
+
+function product(id){
+  const x=P.find(p=>p.id===id);
+  $("#pm").innerHTML=`<div class="mimg" style="background:${x.bg}">${x.e}</div><div class="mb">
+   <div style="display:flex;justify-content:space-between"><h2>${x.n}</h2><button class="x" data-close aria-label="Close">×</button></div>
+   <div class="rate">${stars(x.r)} ${x.r} · ${x.c}</div><p>${x.d}</p>
+   <div class="price">${money(x.p)}${x.o?`<s>${money(x.o)}</s>`:""}</div>
+   <div class="opts"><label>Option<select id="pv">${x.v.map(v=>`<option>${v}</option>`).join("")}</select></label>
+   <label>Quantity<select id="pq">${[1,2,3,4,5].map(n=>`<option>${n}</option>`).join("")}</select></label></div>
+   <button class="btn" id="padd">Add to cart</button></div>`;
+  open_($("#pm"));
+  $("#padd").onclick=()=>{add(id,$("#pv").value,+$("#pq").value);closeAll()};
+}
+function add(id,v,n){
+  const k=cart.find(i=>i.id===id&&i.v===v);
+  if(k)k.n=Math.min(10,k.n+n);else cart.push({id,v,n});
+  save();upd();toast("Added to cart");
+}
+function totals(){
+  const sub=cart.reduce((s,i)=>s+P.find(p=>p.id===i.id).p*i.n,0);
+  const disc=promo?sub*.1:0, ship=sub-disc>=50||!sub?0:5.99;
+  return{sub,disc,ship,tot:sub-disc+ship};
+}
+function upd(){
+  $("#cc").textContent=cart.reduce((s,i)=>s+i.n,0);
+  const t=totals();
+  $("#items").innerHTML=cart.length?cart.map((i,ix)=>{const x=P.find(p=>p.id===i.id);return `<div class="it">
+   <div class="th" style="background:${x.bg}">${x.e}</div>
+   <div><strong>${x.n}</strong><br><small>${i.v} · ${money(x.p)}</small>
+   <div class="q"><button data-m="${ix}" aria-label="Less">−</button>${i.n}<button data-p="${ix}" aria-label="More">+</button></div></div>
+   <div><strong>${money(x.p*i.n)}</strong><button class="rm" data-r="${ix}">Remove</button></div></div>`}).join(""):
+   `<div class="empty">Your cart is empty.<br>Add something you like.</div>`;
+  $("#sum").innerHTML=cart.length?`
+   <div class="pc"><input id="pcode" placeholder="Promo code" value="${promo||""}"><button class="btn line" id="papply">Apply</button></div><div class="msg" id="pmsg"></div>
+   <div><span>Subtotal</span><span>${money(t.sub)}</span></div>
+   ${promo?`<div class="ok"><span>Promo (10%)</span><span>−${money(t.disc)}</span></div>`:""}
+   <div><span>Shipping</span><span>${t.ship?money(t.ship):"Free"}</span></div>
+   <div class="tot"><span>Total</span><span>${money(t.tot)}</span></div>
+   <button class="btn" id="go">Checkout</button>`:"";
+}
+$("#items").onclick=e=>{const d=e.target.dataset;
+  if(d.m!==undefined){cart[d.m].n--;if(cart[d.m].n<1)cart.splice(d.m,1)}
+  else if(d.p!==undefined)cart[d.p].n=Math.min(10,cart[d.p].n+1);
+  else if(d.r!==undefined)cart.splice(d.r,1);else return;
+  save();upd();
+};
+$("#sum").onclick=e=>{
+  if(e.target.id==="papply"){const c=$("#pcode").value.trim().toUpperCase();
+    if(c==="SAVE10"){promo=c;upd();$("#pmsg").textContent="Code applied.";$("#pmsg").className="msg ok"}
+    else{promo=null;upd();$("#pmsg").textContent="That code is not valid. Try SAVE10.";$("#pmsg").className="msg bad"}}
+  if(e.target.id==="go")checkout();
+};
+$("#cartBtn").onclick=()=>{upd();open_($("#drawer"))};
+document.addEventListener("click",e=>{if(e.target.matches("[data-close]"))closeAll()});
+
+function checkout(){
+  const t=totals();
+  closeAll();
+  $("#cm").innerHTML=`<form class="fm" id="cf" novalidate>
+   <div style="display:flex;justify-content:space-between"><h2>Checkout</h2><button type="button" class="x" data-close aria-label="Close">×</button></div>
+   <label>Full name<input name="n" autocomplete="name"></label>
+   <label>Email<input name="e" type="email" autocomplete="email"></label>
+   <label>Address<input name="a" autocomplete="street-address"></label>
+   <div class="two"><label>City<input name="c"></label><label>Postcode<input name="z"></label></div>
+   <label>Card number<input name="cn" inputmode="numeric" placeholder="4242 4242 4242 4242" maxlength="19"></label>
+   <div class="two"><label>Expiry<input name="x" placeholder="MM/YY" maxlength="5"></label><label>CVC<input name="v" inputmode="numeric" maxlength="4"></label></div>
+   <p class="note">Demo only. Do not enter a real card number. Any 16 digits will work.</p>
+   <button class="btn" type="submit">Pay ${money(t.tot)}</button></form>`;
+  open_($("#cm"));
+  $("#cf").onsubmit=ev=>{ev.preventDefault();
+    const f=ev.target,g=n=>f[n].value.trim();
+    const rules={n:g("n").length>1,e:/^\S+@\S+\.\S+$/.test(g("e")),a:g("a").length>3,c:g("c").length>1,z:g("z").length>2,
+      cn:g("cn").replace(/\s/g,"").length===16,x:/^(0[1-9]|1[0-2])\/\d\d$/.test(g("x")),v:/^\d{3,4}$/.test(g("v"))};
+    let ok=true;for(const k in rules){f[k].classList.toggle("err",!rules[k]);if(!rules[k])ok=false}
+    if(!ok){toast("Please fix the highlighted fields");return}
+    const no="UG-"+Math.floor(100000+Math.random()*900000);
+    $("#cm").innerHTML=`<div class="done"><div class="big">✅</div><h2>Thank you, ${g("n").split(" ")[0]}!</h2>
+     <p>Order <strong>${no}</strong> is confirmed. A receipt would be sent to ${g("e")}.</p>
+     <p class="note">This was a demo, so no payment was taken.</p><button class="btn" data-close>Keep shopping</button></div>`;
+    cart=[];promo=null;save();upd();
+  };
+}
+render();upd();
+</script>
+</body>
+</html>

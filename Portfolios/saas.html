@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ledgerly – Invoicing and cash flow for small teams</title>
+<meta name="description" content="Ledgerly is a demo SaaS landing page with a live dashboard, savings calculator, pricing toggle and free-trial signup form.">
+<meta property="og:title" content="Ledgerly – Invoicing and cash flow for small teams">
+<meta property="og:description" content="Send invoices in two minutes and get paid faster.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&display=swap" rel="stylesheet">
+<!-- CHANGE: paste your Google Analytics (GA4) snippet here. The track() function below already sends events to dataLayer. -->
+<style>
+:root{--bg:#f7f8fc;--ink:#12142b;--muted:#5d6280;--line:#e1e4f0;--card:#fff;--brand:#4338ca;--brand2:#eceafc;--good:#0f9d6e;--warn:#d97706;--bad:#dc2626}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Manrope,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+button,input,select{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:0;z-index:20;background:rgba(247,248,252,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:26px;height:66px}
+.logo{font-weight:800;font-size:1.3rem;letter-spacing:-.02em;margin-right:auto;display:flex;align-items:center;gap:8px}
+.logo i{width:24px;height:24px;border-radius:7px;background:var(--brand);display:inline-block;position:relative}
+.logo i::after{content:"";position:absolute;left:6px;top:6px;width:12px;height:12px;border:3px solid #fff;border-top-color:transparent;border-radius:50%}
+nav a{color:var(--muted);text-decoration:none;font-weight:600;margin-right:22px}nav a:hover{color:var(--ink)}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:10px;padding:13px 24px;font-weight:700;text-decoration:none;display:inline-block;text-align:center}
+.btn:hover{filter:brightness(1.12)}.btn.sm{padding:9px 18px}.btn.line{background:#fff;color:var(--ink);border:1px solid var(--line)}.btn[disabled]{opacity:.6;cursor:wait}
+.hero{padding:64px 0 40px}
+.hg{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center}
+.badge{display:inline-block;background:var(--brand2);color:var(--brand);font-weight:700;font-size:.85rem;padding:5px 14px;border-radius:99px;margin-bottom:18px}
+h1{font-size:clamp(2.4rem,5.2vw,4rem);line-height:1.04;letter-spacing:-.035em;font-weight:800}
+.lead{margin:18px 0 26px;font-size:1.15rem;color:var(--muted);max-width:46ch}
+.hf{display:flex;gap:8px;max-width:460px}.hf input{flex:1;min-width:0;padding:13px 16px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.hint{font-size:.85rem;color:var(--muted);margin-top:10px}
+.dash{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 24px 60px -24px rgba(67,56,202,.35)}
+.dt{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}.dt strong{font-size:1.05rem}
+.seg{display:inline-flex;background:var(--bg);border-radius:10px;padding:3px}.seg button{border:0;background:none;padding:5px 12px;border-radius:8px;font-weight:600;font-size:.85rem;color:var(--muted)}.seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.kpi{background:var(--bg);border-radius:12px;padding:12px}.kpi small{color:var(--muted);font-weight:600;font-size:.78rem}.kpi b{display:block;font-size:1.3rem;letter-spacing:-.02em}.kpi em{font-style:normal;font-size:.78rem;font-weight:700}.up{color:var(--good)}.dn{color:var(--bad)}
+.chart{display:flex;align-items:flex-end;gap:6px;height:130px;padding-bottom:4px;border-bottom:1px solid var(--line)}
+.chart div{flex:1;background:var(--brand);border-radius:6px 6px 0 0;opacity:.85;transition:height .45s;min-width:0}.chart div:last-child{opacity:1}
+.axis{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin:6px 0 14px}
+.inv{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:.9rem}
+.st{font-size:.75rem;font-weight:700;padding:2px 10px;border-radius:99px}.paid{background:#d9f5ea;color:#0a7a56}.pend{background:#fdecc8;color:#92570a}.over{background:#fde0e0;color:#b91c1c}
+section{padding:76px 0}
+h2{font-size:clamp(1.9rem,4vw,2.8rem);letter-spacing:-.03em;line-height:1.1;font-weight:800;margin-bottom:12px}
+.sub{color:var(--muted);max-width:52ch;margin-bottom:30px}
+.ctr{text-align:center}.ctr .sub{margin-left:auto;margin-right:auto}
+.ft{display:grid;grid-template-columns:260px 1fr;gap:28px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.tabs{display:grid;gap:6px;align-content:start}.tabs button{text-align:left;border:1px solid transparent;background:none;padding:14px 16px;border-radius:12px;font-weight:700}
+.tabs button.on{background:var(--brand2);color:var(--brand)}.tabs small{display:block;font-weight:500;color:var(--muted)}
+.fp{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center}.fp h3{font-size:1.5rem;letter-spacing:-.02em;margin-bottom:8px}.fp ul{list-style:none;padding:0;margin-top:12px;display:grid;gap:6px}.fp li::before{content:"✓ ";color:var(--good);font-weight:800}
+.mock{background:var(--bg);border-radius:14px;padding:18px;display:grid;gap:8px;font-size:.9rem;min-height:210px;align-content:center}
+.mock .r{display:flex;justify-content:space-between;background:#fff;border-radius:8px;padding:8px 12px}
+.mock .tot{font-weight:800;font-size:1.15rem;background:none;padding:6px 12px 0}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:30px;background:var(--ink);color:#fff;border-radius:22px;padding:36px}
+.calc .sub{color:#b9bdd6}
+.sl{display:grid;gap:6px;margin-bottom:18px;font-weight:600}.sl span{display:flex;justify-content:space-between}.sl b{color:#c7c2ff}
+input[type=range]{width:100%;accent-color:#8b83ff}
+.out{background:#1d2045;border-radius:16px;padding:26px;display:grid;gap:4px;align-content:center}
+.out .big{font-size:clamp(2.6rem,6vw,3.8rem);font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff}.out p{color:#b9bdd6;font-size:.92rem}
+.tog{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:4px;margin-bottom:26px}.tog button{border:0;background:none;padding:8px 20px;border-radius:99px;font-weight:700;color:var(--muted)}.tog button.on{background:var(--brand);color:#fff}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;text-align:left}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:10px;position:relative}.plan.pop{border:2px solid var(--brand)}
+.pill{position:absolute;top:-12px;left:24px;background:var(--brand);color:#fff;font-size:.75rem;font-weight:700;padding:3px 12px;border-radius:99px}
+.plan h3{font-size:1.2rem}.pr{font-size:2.8rem;font-weight:800;letter-spacing:-.04em}.pr small{font-size:.95rem;font-weight:500;color:var(--muted);letter-spacing:0}
+.plan ul{list-style:none;padding:0;display:grid;gap:6px;flex:1;margin-bottom:10px;color:var(--muted)}.plan li::before{content:"✓ ";color:var(--good);font-weight:800}
+.sv{color:var(--good);font-size:.85rem;font-weight:700;min-height:1.3em}
+.qs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;display:grid;gap:14px;align-content:space-between}
+.who{display:flex;gap:10px;align-items:center;font-size:.9rem}.who i{width:38px;height:38px;border-radius:50%;background:var(--brand2);color:var(--brand);display:grid;place-items:center;font-style:normal;font-weight:800}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:10px;max-width:760px;margin-left:auto;margin-right:auto;text-align:left}
+summary{font-weight:700;cursor:pointer}details p{margin-top:8px;color:var(--muted)}
+.cta{background:var(--brand);color:#fff;border-radius:24px;padding:56px 24px;text-align:center}.cta .sub{color:#dcd9ff;margin-left:auto;margin-right:auto}.cta .btn{background:#fff;color:var(--brand)}
+footer{padding:30px 0;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);margin-top:76px}
+.ov{position:fixed;inset:0;background:rgba(14,15,38,.6);display:none;z-index:40}.ov.show{display:block}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(460px,94%);max-height:92vh;overflow:auto;background:#fff;border-radius:20px;z-index:50;display:none;padding:28px}.modal.show{display:block}
+.fm{display:grid;gap:12px}.fm h2{font-size:1.7rem;margin:0}.fm label{display:grid;gap:4px;font-size:.88rem;font-weight:700}
+.fm input,.fm select{padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-weight:500;background:#fff;width:100%}.fm .bad{border-color:var(--bad)}
+.x{float:right;background:none;border:0;font-size:1.7rem;line-height:1}.hp{position:absolute;left:-9999px}
+.note{font-size:.82rem;color:var(--muted)}.okm{text-align:center;display:grid;gap:10px;padding:10px 0}.okm .big{font-size:3rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 20px;border-radius:99px;z-index:60;opacity:0;visibility:hidden;transition:opacity .25s}.toast.show{opacity:1;visibility:visible}
+@media(max-width:900px){.hg,.fp,.calc,.plans,.qs{grid-template-columns:minmax(0,1fr)}.ft{grid-template-columns:minmax(0,1fr)}.tabs{grid-template-columns:repeat(3,minmax(0,1fr))}.tabs small{display:none}nav{display:none}.hero{padding-top:36px}section{padding:56px 0}.calc{padding:24px}}
+@media(max-width:480px){.hf{flex-direction:column}.tabs button{padding:10px 8px;font-size:.88rem}.dash{padding:14px}.kpi b{font-size:1.1rem}.wrap{padding:0 16px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="logo"><i></i>Ledgerly</div>
+  <nav><a href="#features">Features</a><a href="#savings">Savings</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
+  <button class="btn sm" data-trial="header">Start free trial</button>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap hg">
+  <div>
+    <span class="badge">Invoicing made simple</span>
+    <h1>Send invoices in two minutes. Get paid faster.</h1>
+    <p class="lead">Ledgerly helps freelancers and small teams create invoices, send reminders and see their cash flow in one clear place. This is a demo, so no account is created.</p>
+    <form class="hf" id="hf" novalidate><input id="he" type="email" placeholder="Your work email" aria-label="Work email" autocomplete="email"><button class="btn" type="submit">Start free</button></form>
+    <p class="hint">Free for 14 days. No card needed.</p>
+  </div>
+  <div class="dash" aria-label="Sample dashboard">
+    <div class="dt"><strong>Cash flow</strong><div class="seg" id="seg" role="group" aria-label="Date range"><button data-r="7">7 days</button><button data-r="30" class="on">30 days</button><button data-r="90">90 days</button></div></div>
+    <div class="kpis" id="kpis"></div>
+    <div class="chart" id="chart" aria-hidden="true"></div><div class="axis" id="axis"></div>
+    <div class="inv"><span>Studio Nova</span><span>$2,400</span><span class="st paid">Paid</span></div>
+    <div class="inv"><span>Harbor Café</span><span>$860</span><span class="st pend">Pending</span></div>
+    <div class="inv"><span>Pixel &amp; Co</span><span>$1,150</span><span class="st over">Overdue</span></div>
+  </div>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <div class="ctr"><h2>Everything you need to get paid</h2><p class="sub">Pick a feature to see how it works.</p></div>
+  <div class="ft"><div class="tabs" id="tabs" role="tablist"></div><div class="fp" id="fp"></div></div>
+</div></section>
+
+<section id="savings" style="padding-top:0"><div class="wrap">
+  <div class="calc">
+    <div><h2>See how much time you save</h2><p class="sub">Move the sliders to match your work. Ledgerly takes about 2 minutes per invoice.</p>
+      <div class="sl"><span><label for="n">Invoices per month</label><b id="nv"></b></span><input id="n" type="range" min="5" max="200" value="40"></div>
+      <div class="sl"><span><label for="m">Minutes per invoice today</label><b id="mv"></b></span><input id="m" type="range" min="5" max="45" value="15"></div>
+      <div class="sl"><span><label for="h">Your hourly rate</label><b id="hv"></b></span><input id="h" type="range" min="15" max="150" step="5" value="40"></div>
+    </div>
+    <div class="out" id="out"></div>
+  </div>
+</div></section>
+
+<section id="pricing" class="ctr" style="padding-top:0"><div class="wrap">
+  <h2>Simple pricing</h2><p class="sub">Start free. Upgrade when you grow.</p>
+  <div class="tog" id="tog" role="group" aria-label="Billing"><button data-b="m" class="on">Monthly</button><button data-b="y">Yearly (save 20%)</button></div>
+  <div class="plans" id="plans"></div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="ctr"><h2>Loved by small teams</h2><p class="sub">Sample reviews for this demo.</p></div>
+  <div class="qs">
+    <div class="q"><p>“I used to chase payments for weeks. Now reminders go out on their own and I get paid in days.”</p><div class="who"><i>AK</i><div><b>Amira K.</b><br>Freelance designer</div></div></div>
+    <div class="q"><p>“The dashboard shows what is paid and what is late at a glance. That saves me a spreadsheet.”</p><div class="who"><i>TO</i><div><b>Tom O.</b><br>Studio owner</div></div></div>
+    <div class="q"><p>“Setup took ten minutes and my clients can pay by card straight from the email.”</p><div class="who"><i>LR</i><div><b>Lina R.</b><br>Consultant</div></div></div>
+  </div>
+</div></section>
+
+<section id="faq" class="ctr" style="padding-top:0"><div class="wrap">
+  <h2>Questions</h2><div style="height:20px"></div>
+  <details><summary>Is there really a free plan?</summary><p>Yes. The Free plan lets you send up to 5 invoices a month, forever.</p></details>
+  <details><summary>Can my clients pay by card?</summary><p>Yes. Every invoice has a secure payment link for cards and bank transfer.</p></details>
+  <details><summary>Can I cancel any time?</summary><p>Yes. There are no contracts. Cancel in two clicks from your settings.</p></details>
+  <details><summary>Is my data safe?</summary><p>Your data is encrypted and backed up every day. You can export it at any time.</p></details>
+</div></section>
+
+<div class="wrap"><div class="cta"><h2>Ready to get paid faster?</h2><p class="sub">Join thousands of freelancers using Ledgerly. Set up in 10 minutes.</p><button class="btn" data-trial="footer-cta">Start free trial</button></div></div>
+</main>
+<footer><div class="wrap">Ledgerly is a demo product page built for a portfolio. It is not a real service.</div></footer>
+
+<div class="ov" id="ov"></div>
+<div class="modal" id="md" role="dialog" aria-modal="true" aria-label="Start free trial">
+  <button class="x" data-close aria-label="Close">×</button>
+  <form class="fm" id="tf" name="trial" method="POST" data-netlify="true" netlify-honeypot="bot" novalidate>
+    <input type="hidden" name="form-name" value="trial"><input type="hidden" name="source" id="src">
+    <p class="hp"><label>Leave empty <input name="bot"></label></p>
+    <h2>Start your free trial</h2><p class="note">14 days free. No card needed.</p>
+    <label>Full name<input name="name" autocomplete="name"></label>
+    <label>Work email<input name="email" type="email" autocomplete="email"></label>
+    <label>Team size<select name="size"><option>Just me</option><option>2–10 people</option><option>11–50 people</option><option>50+ people</option></select></label>
+    <button class="btn" type="submit" id="sb">Create my account</button>
+  </form>
+  <div class="okm" id="okm" hidden></div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s),money=n=>"$"+Math.round(n).toLocaleString("en-US");
+// Simple event tracking. Sends to GA4 / Google Tag Manager if you add it.
+window.dataLayer=window.dataLayer||[];
+function track(ev,data){window.dataLayer.push(Object.assign({event:ev},data||{}))}
+
+/* Dashboard */
+const D={7:{k:[["Revenue","$4,280","+8%",1],["Paid","11","+2",1],["Overdue","$1,150","+$300",0]],b:[40,55,35,70,60,85,75],a:["Mon","Sun"]},
+30:{k:[["Revenue","$18,640","+14%",1],["Paid","46","+9",1],["Overdue","$1,150","−$420",1]],b:[35,48,42,60,52,68,58,76,70,90],a:["Day 1","Day 30"]},
+90:{k:[["Revenue","$52,310","+21%",1],["Paid","131","+28",1],["Overdue","$2,040","+$110",0]],b:[30,38,34,45,50,48,60,58,66,72,80,92],a:["Month 1","Month 3"]}};
+function dash(r){
+  const d=D[r];
+  $("#kpis").innerHTML=d.k.map(k=>`<div class="kpi"><small>${k[0]}</small><b>${k[1]}</b><em class="${k[3]?"up":"dn"}">${k[2]}</em></div>`).join("");
+  const c=$("#chart");c.innerHTML=d.b.map(()=>`<div style="height:0"></div>`).join("");
+  requestAnimationFrame(()=>requestAnimationFrame(()=>[...c.children].forEach((e,i)=>e.style.height=d.b[i]+"%")));
+  $("#axis").innerHTML=`<span>${d.a[0]}</span><span>${d.a[1]}</span>`;
+  document.querySelectorAll("#seg button").forEach(b=>b.classList.toggle("on",b.dataset.r===String(r)));
+}
+$("#seg").onclick=e=>{if(e.target.dataset.r){dash(e.target.dataset.r);track("dashboard_range",{range:e.target.dataset.r})}};
+
+/* Feature tabs */
+const F=[["Invoices","Create and send in minutes","Invoices","Build a clean invoice from a template and send it by email in one click.",["Reusable templates","Auto tax and totals","Your logo and colors"],
+ `<div class="r"><span>Website design</span><b>$1,800</b></div><div class="r"><span>Logo pack</span><b>$600</b></div><div class="r"><span>Tax (10%)</span><b>$240</b></div><div class="r tot"><span>Total</span><span>$2,640</span></div><button class="btn sm" data-trial="feature-invoice">Send invoice</button>`],
+["Payments","Get paid your way","Payments","Clients pay by card or bank transfer straight from the invoice email.",["Card and bank payments","Automatic reminders","Money in your account fast"],
+ `<div class="r"><span>Studio Nova paid</span><b class="up">+$2,400</b></div><div class="r"><span>Reminder sent to Harbor Café</span><b>2 min ago</b></div><div class="r"><span>Pixel &amp; Co is 5 days late</span><b class="dn">Overdue</b></div><div class="r"><span>Payout to your bank</span><b>Tomorrow</b></div>`],
+["Reports","See where your money goes","Reports","Simple charts show your income, your late payers and what to expect next month.",["Income by client","Late payment tracking","Export to CSV"],
+ `<svg viewBox="0 0 300 120" role="img" aria-label="Rising income chart"><polyline fill="none" stroke="#4338ca" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" points="5,100 55,85 105,92 155,60 205,48 255,30 295,18"/><polyline fill="#4338ca22" stroke="none" points="5,100 55,85 105,92 155,60 205,48 255,30 295,18 295,120 5,120"/></svg><div class="r"><span>This month</span><b class="up">+14%</b></div>`]];
+let ft=0;
+function feat(){
+  $("#tabs").innerHTML=F.map((f,i)=>`<button role="tab" aria-selected="${i===ft}" class="${i===ft?"on":""}" data-t="${i}">${f[0]}<small>${f[1]}</small></button>`).join("");
+  const f=F[ft];$("#fp").innerHTML=`<div><h3>${f[2]}</h3><p>${f[3]}</p><ul>${f[4].map(x=>`<li>${x}</li>`).join("")}</ul></div><div class="mock">${f[5]}</div>`;
+}
+$("#tabs").onclick=e=>{const b=e.target.closest("[data-t]");if(b){ft=+b.dataset.t;feat();track("feature_tab",{tab:F[ft][0]})}};
+
+/* Savings calculator */
+function calc(){
+  const n=+$("#n").value,m=+$("#m").value,h=+$("#h").value;
+  $("#nv").textContent=n;$("#mv").textContent=m+" min";$("#hv").textContent="$"+h;
+  const hrs=Math.max(0,n*(m-2)/60),mo=hrs*h;
+  $("#out").innerHTML=`<p>You could save about</p><div class="big">${money(mo)}</div><p>every month · ${hrs.toFixed(1)} hours back · ${money(mo*12)} a year</p>`;
+}
+["n","m","h"].forEach(i=>$("#"+i).addEventListener("input",calc));
+
+/* Pricing */
+const PL=[["Free",0,"For trying it out",["5 invoices a month","1 user","Email support"]],["Pro",19,"For freelancers",["Unlimited invoices","Automatic reminders","Card payments","Reports"],1],["Team",49,"For small teams",["Everything in Pro","5 users","Roles and permissions","Priority support"]]];
+let bill="m";
+function plans(){
+  $("#plans").innerHTML=PL.map(p=>{const v=bill==="m"?p[1]:Math.round(p[1]*.8);
+   return `<div class="plan ${p[4]?"pop":""}">${p[4]?`<span class="pill">Most popular</span>`:""}<h3>${p[0]}</h3><p class="note">${p[2]}</p>
+   <div class="pr">$${v}<small> /month</small></div><div class="sv">${bill==="y"&&p[1]?`Billed $${v*12} a year. Save $${p[1]*12-v*12}.`:""}</div>
+   <ul>${p[3].map(x=>`<li>${x}</li>`).join("")}</ul><button class="btn ${p[4]?"":"line"}" data-trial="plan-${p[0].toLowerCase()}">${p[1]?"Start "+p[0]+" trial":"Start free"}</button></div>`}).join("");
+  document.querySelectorAll("#tog button").forEach(b=>b.classList.toggle("on",b.dataset.b===bill));
+}
+$("#tog").onclick=e=>{if(e.target.dataset.b){bill=e.target.dataset.b;plans();track("billing_toggle",{billing:bill})}};
+
+/* Signup modal */
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),2000)}
+function openM(src,email){track("cta_click",{source:src});$("#src").value=src;$("#tf").hidden=false;$("#okm").hidden=true;
+  if(email)$("#tf").email.value=email;$("#ov").classList.add("show");$("#md").classList.add("show");setTimeout(()=>$("#tf").name.focus(),50)}
+function closeM(){$("#ov").classList.remove("show");$("#md").classList.remove("show")}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-trial]");if(t)openM(t.dataset.trial);if(e.target.matches("[data-close]"))closeM()});
+$("#ov").onclick=closeM;document.addEventListener("keydown",e=>{if(e.key==="Escape")closeM()});
+$("#hf").onsubmit=e=>{e.preventDefault();const v=$("#he").value.trim();
+  if(!/^\S+@\S+\.\S+$/.test(v)){$("#he").style.borderColor="#dc2626";toast("Enter a valid email, like name@company.com");return}
+  $("#he").style.borderColor="";openM("hero-form",v)};
+$("#tf").onsubmit=async e=>{e.preventDefault();const f=e.target,g=n=>f[n].value.trim();
+  const r={name:g("name").length>1,email:/^\S+@\S+\.\S+$/.test(g("email"))};let ok=true;
+  for(const k in r){f[k].classList.toggle("bad",!r[k]);if(!r[k])ok=false}
+  if(!ok){toast("Please fix the highlighted fields");return}
+  $("#sb").disabled=true;$("#sb").textContent="Creating...";let sent=false;
+  try{const res=await fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams(new FormData(f)).toString()});sent=res.ok}catch(_){}
+  track("trial_signup",{source:$("#src").value,team_size:g("size")});
+  $("#okm").innerHTML=`<div class="big">🎉</div><h2 style="margin:0;font-size:1.6rem">Welcome, ${g("name").split(" ")[0]}!</h2><p>Your trial is ready. We would email ${g("email")} with next steps.</p>
+   <p class="note">${sent?"Your details were sent to the form inbox.":"Demo mode: the form works, but emails are only collected when the site is hosted on Netlify."}</p><button class="btn" data-close>Done</button>`;
+  f.reset();f.hidden=true;$("#okm").hidden=false;$("#sb").disabled=false;$("#sb").textContent="Create my account";$("#he").value="";
+};
+dash(30);feat();calc();plans();
+</script>
+</body>
+</html>
